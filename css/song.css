@@ -1,0 +1,157 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+@keyframes circle {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: transparent url(https://music.163.com/api/img/blur/109951163252847249) no-repeat center;
+    background-size: cover;
+}
+
+.page::after {
+    content: " ";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, .5);
+}
+
+/*----------------------------------------*/
+.disc-containe {
+    z-index: 21;
+    position: relative;
+}
+
+
+.disc-containe .needle {
+    width: 24vw;
+    position: absolute;
+    left: 45%;
+}
+ 
+.disc-containe .disc {
+    margin-top: 18vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.disc-containe .ring {
+    width: 79vw;
+}
+
+.disc-containe .light {
+    width: 79vw;
+    position: absolute;
+}
+
+.disc-containe .cover {
+    display: block;
+    width: 50vw;
+    position: absolute;
+    border-radius: 50%;
+}
+
+.disc-containe .play{
+    width: 15vw;
+    display: block;
+    position: absolute;
+    display: block;
+}
+
+.disc-containe .play {
+    display: block;
+}
+
+.disc-containe.playing .light,
+.disc-containe.playing .cover{
+    animation: circle 8s infinite linear;
+}   
+.disc-containe.playing .play{
+    display: none;
+}
+
+/*----------------------------------------*/
+
+.song-description {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    z-index: 21;
+    color: hsla(0,0%,100%,.6);
+    text-align: center;
+    line-height: 2;
+    margin-top: 15px;
+    flex-grow: 1;
+}
+
+.song-description h1 {
+    color: #fefefe;
+    font-size: 18px;
+}
+
+
+.song-description p {
+    font-size: 14px;
+    line-height: 28px;
+}
+
+.song-description p.avtive {
+    color: white;
+}
+
+.song-description .lyric {
+    height: 80px;
+    overflow: hidden;
+    /* border: red 1px solid; */
+}
+
+/*----------------------------------------*/
+
+
+.page > .links{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #d43b2d;
+}
+
+
+.page > .links > a{
+    border-radius: 15px;
+    padding: 1.5vw;
+    width: 38.5vw;
+    margin: 1em;
+    text-align: center;
+    border: 1px solid #d43b2d; 
+    background-color: transparent;
+    color: inherit;
+    text-decoration: none;
+    z-index: 21;
+    letter-spacing: 2px;
+    font-size: 20px;
+}
+
+.page > .links > a.mian{
+    background: #d43b2d;
+    color: white;   
+}
