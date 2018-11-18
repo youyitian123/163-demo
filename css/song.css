@@ -14,10 +14,12 @@
         transform: rotate(0deg)
     }
 
-    100% {
+    to {
         transform: rotate(360deg)
     }
 }
+
+
 
 .page {
     display: flex;
@@ -41,7 +43,9 @@
 .disc-containe {
     z-index: 21;
     position: relative;
+
 }
+
 
 
 .disc-containe .needle {
@@ -49,7 +53,7 @@
     position: absolute;
     left: 45%;
 }
- 
+
 .disc-containe .disc {
     margin-top: 18vw;
     display: flex;
@@ -60,6 +64,20 @@
 .disc-containe .ring {
     width: 79vw;
 }
+
+.disc {
+    overflow: hidden;
+}
+
+.disc-containe .circleWp {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid red;
+}
+
+
 
 .disc-containe .light {
     width: 79vw;
@@ -73,7 +91,7 @@
     border-radius: 50%;
 }
 
-.disc-containe .play{
+.disc-containe .play {
     width: 15vw;
     display: block;
     position: absolute;
@@ -85,10 +103,12 @@
 }
 
 .disc-containe.playing .light,
-.disc-containe.playing .cover{
-    animation: circle 8s infinite linear;
-}   
-.disc-containe.playing .play{
+.disc-containe.playing .cover {
+    animation: circle 20s infinite linear normal;
+}
+
+
+.disc-containe.playing .play {
     display: none;
 }
 
@@ -97,7 +117,7 @@
 .song-description {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     z-index: 21;
-    color: hsla(0,0%,100%,.6);
+    color: hsla(0, 0%, 100%, .6);
     text-align: center;
     line-height: 2;
     margin-top: 15px;
@@ -128,7 +148,7 @@
 /*----------------------------------------*/
 
 
-.page > .links{
+.page>.links {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -136,13 +156,13 @@
 }
 
 
-.page > .links > a{
+.page>.links>a {
     border-radius: 15px;
     padding: 1.5vw;
     width: 38.5vw;
     margin: 1em;
     text-align: center;
-    border: 1px solid #d43b2d; 
+    border: 1px solid #d43b2d;
     background-color: transparent;
     color: inherit;
     text-decoration: none;
@@ -151,7 +171,7 @@
     font-size: 20px;
 }
 
-.page > .links > a.mian{
+.page>.links>a.mian {
     background: #d43b2d;
-    color: white;   
+    color: white;
 }
