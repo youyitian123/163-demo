@@ -46,8 +46,6 @@
 
 }
 
-
-
 .disc-containe .needle {
     width: 24vw;
     position: absolute;
@@ -66,7 +64,7 @@
 }
 
 .disc {
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .disc-containe .circleWp {
@@ -89,6 +87,8 @@
     width: 50vw;
     position: absolute;
     border-radius: 50%;
+    animation: circle 20s infinite linear normal;
+    animation-play-state: paused;
 }
 
 .disc-containe .play {
@@ -104,7 +104,7 @@
 
 .disc-containe.playing .light,
 .disc-containe.playing .cover {
-    animation: circle 20s infinite linear normal;
+    animation-play-state: running;
 }
 
 

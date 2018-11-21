@@ -1,14 +1,17 @@
 [
   {
-    "url":"1",
+    "id":"1",
+    "url":"http://1.mp3",
     "name":"没有人像你一样"
   },
   {
-    "url":"2",
+    "id":"2",
+    "url":"http://2.mp3",
     "name":"FAKE LOVE (Japanese Version)"
   },
   {
-    "url":"3",
+    "id":"3",
+    "url":"http://3.mp3",
     "name":"I.W.A.B.N"
   }
 ]
