@@ -7,6 +7,7 @@
 *::before,
 *::after {
     box-sizing: border-box;
+    font-family: Helvetica, sans-serif;
 }
 
 @keyframes circle {
@@ -19,14 +20,22 @@
     }
 }
 
+h1,
+h2,
+h3,
+h4 {
+  font-weight: normal;
+}
 
 
 .page {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background: transparent url(https://music.163.com/api/img/blur/109951163252847249) no-repeat center;
-    background-size: cover;
+    /* background: transparent url(https://music.163.com/api/img/blur/109951163252847249) no-repeat center; */
+    background-size:auto 100%;
+    background-position:50%;
+    /* transform: scale(1.5); */
 }
 
 .page::after {
@@ -115,24 +124,23 @@
 /*----------------------------------------*/
 
 .song-description {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     z-index: 21;
     color: hsla(0, 0%, 100%, .6);
     text-align: center;
     line-height: 2;
-    margin-top: 15px;
+    margin-top: 5vw;
     flex-grow: 1;
 }
 
 .song-description h1 {
     color: #fefefe;
-    font-size: 18px;
+    font-size: 5vw;
 }
 
 
 .song-description p {
-    font-size: 14px;
-    line-height: 28px;
+    font-size: 4vw;
+    line-height: 7.5vw;
 }
 
 .song-description p.avtive {
@@ -140,7 +148,7 @@
 }
 
 .song-description .lyric {
-    height: 80px;
+    height: 23vw;
     overflow: hidden;
     /* border: red 1px solid; */
 }

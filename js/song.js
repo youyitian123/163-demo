@@ -1,17 +1,43 @@
 //请求服务器中的歌词文件
 $(function () {
 
-
-
   let id = location.search.match(/\bid=([^&]*)/)[1]
 
   $.get('./songs.json').then(function (response) {
     let songs = response
     let song = songs.filter(s => s.id === id)[0]
+    console.log(song)
 
     let {
-      url
+      url,
+      wp,
+      name,
+      singer,
+      covoer,
+      lyric
     } = song
+
+    initPlayer.call(undefined, url, wp, covoer)
+    initText(name, lyric)
+    //添加音乐标题
+  })
+
+
+  function initText(name, lyric) {
+    var h1 = $("<h1></h1>").text(`${name}`);
+    $('.song-description').prepend(h1)
+    parseLyric.call(undefined, lyric)
+  }
+
+  function initPlayer(url, wp, covoer, name) {
+
+
+    //添加音乐图标和背景
+    let covoerUrl = covoer
+    $('.cover').attr('src', `${covoerUrl}`)
+    $('.page').css('background-image', `url(${wp})`);
+
+
 
 
     let audio = document.createElement('audio')
@@ -46,13 +72,9 @@ $(function () {
       $('.disc-containe').addClass('playing')
       isPlaying = false
     }
+  }
 
-  })
-
-  $.get('/lyric.json').then(function (response) {
-    let {
-      lyric
-    } = response
+  function parseLyric(lyric) {
     let array = lyric.split('\n')
     let regex = /^\[(.+)\](.*)/
     array = array.map(function (string) {
@@ -73,6 +95,7 @@ $(function () {
 
       $p.attr('data-tiem', object.time).text(object.words)
       $p.appendTo($lyric.children('.lines'))
+
     })
-  })
+  }
 })

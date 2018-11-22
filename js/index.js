@@ -1,6 +1,5 @@
 /*  */
       
-
 $(function(){
  $.get('./songs.json').then(function(response){
    console.log(response)
@@ -14,7 +13,7 @@ $(function(){
         <svg class="sq" aria-hidden="true">
         <use xlink:href="#icon-wusunyinzhi"></use>
         </svg>
-        吉克隽逸-GlobalCitizen世界公民
+        ${i.singer} - ${i.album}
       </p>
       <svg class="play" aria-hidden="true">
       <use xlink:href="#icon-play"></use>
@@ -22,10 +21,9 @@ $(function(){
         </a>
       </li>
      `)
-
      $('#latelyMusic').append($li)
    })
-   $('#latelyMusicLoading').remove()  
+   $('#latelyMusicLoading').remove() 
  })
 
 })
