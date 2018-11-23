@@ -2,7 +2,7 @@
 $(function () {
 
   let id = location.search.match(/\bid=([^&]*)/)[1]
-
+  
   $.get('./songs.json').then(function (response) {
     let songs = response
     let song = songs.filter(s => s.id === id)[0]
@@ -30,32 +30,23 @@ $(function () {
   }
 
   function initPlayer(url, wp, covoer, name) {
-
-
     //添加音乐图标和背景
     let covoerUrl = covoer
     $('.cover').attr('src', `${covoerUrl}`)
     $('.page').css('background-image', `url(${wp})`);
-
-
-
-
     let audio = document.createElement('audio')
     audio.src = url
-
-
     audio.oncanplay = function () {
       audio.play()
       $('.disc-containe').addClass('playing')
     }
-
 
     var $bodyButton = $('body')
 
     //监听用户点击，控制音乐暂停和播放
     var isPlaying = false
 
-    $bodyButton.on('click', function () {
+    $bodyButton.on('touchstart', function () {
       isPlaying ? play() : pause();
     });
 
@@ -72,6 +63,34 @@ $(function () {
       $('.disc-containe').addClass('playing')
       isPlaying = false
     }
+
+    setInterval(() => {
+      let seconds = audio.currentTime
+      let munites = ~~(seconds / 60)
+      let left = seconds - munites * 60
+      let time = `${pad(munites)}:${pad(left)}`
+      let $whichLine
+      // console.log(time)
+      let $lines = $('.lines > p')
+      // console.log($lines)
+      for (let i = 0; i < $lines.length; i++) {
+        if ($lines.eq(i + 1).length !== 0 && $lines.eq(i).attr('data-tiem') < time && $lines.eq(i + 1).attr('data-tiem') > time) {
+          $whichLine = $lines.eq(i)
+          break
+        }
+      }
+      if($whichLine){
+        let top = $whichLine.offset().top
+        let linesTop = $('.lines').offset().top
+        let delta = top - linesTop
+        $('.lines').css('transform',`translateY(-${delta}px)`)
+        $whichLine.addClass('active').prev().removeClass('active')
+      }
+    }, 300);
+  }
+
+  function pad(number) {
+    return number >= 10 ? number + ' ' : '0' + number
   }
 
   function parseLyric(lyric) {

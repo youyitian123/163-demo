@@ -32,7 +32,15 @@ h4 {
   font-weight: normal;
 }
 
+
 .topBar {
+  display: flex;
+  flex-direction: column;
+
+
+}
+
+.m-hometop {
   position: fixed;
   top: 0;
   left: 0;
@@ -45,11 +53,11 @@ h4 {
   z-index: 1;
 }
 
-.topBar .logo {
+.m-hometop .logo {
   width: 37vw;
 }
 
-.topBar .downloadsApp {
+.m-hometop .downloadsApp {
   line-height: 8.5vw;
   border: 1px solid white;
   border-radius: 4.25vw;
@@ -59,8 +67,16 @@ h4 {
   padding: 0 1em;
 }
 
+
 .siteNav {
   margin-top: 16vw;
+  background: white;
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
 }
 
 .siteNav>ol {
@@ -72,7 +88,6 @@ h4 {
 
 .siteNav>ol>li {
   flex: 1;
-
 }
 
 
@@ -89,14 +104,23 @@ h4 {
 }
 
 .siteNav>ol>li.active>span::before {
+
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: -1px;
   left: -1.5vw;
   right: -1.5vw;
   border-bottom: 2px solid #d33a31;
 }
 
+.tabContent>li {
+  margin-top: 32vw;
+  display: none
+}
+
+.tabContent>li.active {
+  display: block;
+}
 
 .remd_tl {
   padding-left: 2vw;
@@ -116,9 +140,7 @@ h4 {
   border-left: 2px solid #d33a31;
 }
 
-.playList {
-  margin-top: 4vw;
-}
+
 
 .playList ul {
   color: #333;
@@ -189,7 +211,7 @@ h4 {
   text-overflow: ellipsis;
   white-space: nowrap;
   word-break: normal;
-  width: 85vw;  
+  width: 85vw;
 }
 
 

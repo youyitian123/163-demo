@@ -26,27 +26,28 @@ h3,
 h4 {
   font-weight: normal;
 }
+.page::after {
+    content: " ";
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .5);
+}
 
 
 .page {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    /* background: transparent url(https://music.163.com/api/img/blur/109951163252847249) no-repeat center; */
-    background-size:auto 100%;
+    background-size: auto 100%;
     background-position:50%;
+    background-size: cover;
     /* transform: scale(1.5); */
 }
 
-.page::after {
-    content: " ";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    background-color: rgba(0, 0, 0, .5);
-}
+
 
 /*----------------------------------------*/
 .disc-containe {
@@ -137,14 +138,19 @@ h4 {
     font-size: 5vw;
 }
 
+.song-description .lines{
+    transition: transform 0.3s;
+}
+
+
 
 .song-description p {
     font-size: 4vw;
     line-height: 7.5vw;
 }
 
-.song-description p.avtive {
-    color: white;
+.song-description p.active {
+    color: #fefefe;
 }
 
 .song-description .lyric {
@@ -165,7 +171,7 @@ h4 {
 
 
 .page>.links>a {
-    border-radius: 15px;
+    border-radius: 10vw;
     padding: 1.5vw;
     width: 38.5vw;
     margin: 1em;
@@ -175,8 +181,8 @@ h4 {
     color: inherit;
     text-decoration: none;
     z-index: 21;
-    letter-spacing: 2px;
-    font-size: 20px;
+    letter-spacing: 1vw;
+    font-size: 5vw;
 }
 
 .page>.links>a.mian {
