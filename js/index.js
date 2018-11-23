@@ -1,10 +1,13 @@
-/*  */
-
 //动态生成推荐音乐
 $(function () {
-  $.get('./songs.json').then(function (response) {
+  $.ajax({
+    url: "https://mexb4utr.api.lncld.net/1.1/classes/Songs",
+    type: 'GET',
+    dataType: 'json',
+    headers: {"X-LC-Id": "mexB4UtrT94NUV77jKbWjXrg-gzGzoHsz","X-LC-Key":"aUf02b02gVG8DiEeqC4YcGEP,master"},
+  }).then(function (response) {
     console.log(response)
-    let items = response
+    let items = response.results
     items.forEach((i) => {
       let $li = $(`
      <li>

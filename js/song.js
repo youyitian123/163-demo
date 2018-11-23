@@ -1,15 +1,23 @@
 //请求服务器中的歌词文件
 $(function () {
 
-  let id = location.search.match(/\bid=([^&]*)/)[1]
+  let id = parseInt(location.search.match(/\bid=([^&]*)/)[1],10) 
   
-  $.get('./songs.json').then(function (response) {
-    let songs = response
+
+  $.ajax({
+    url: "https://mexb4utr.api.lncld.net/1.1/classes/Songs",
+    type: 'GET',
+    dataType: 'json',
+    headers: {"X-LC-Id": "mexB4UtrT94NUV77jKbWjXrg-gzGzoHsz","X-LC-Key":"aUf02b02gVG8DiEeqC4YcGEP,master"},
+  }).then(function (response) {
+    // console.log(response)
+    let songs = response.results
+    // debugger
     let song = songs.filter(s => s.id === id)[0]
-    console.log(song)
+    // console.log(song)
 
     let {
-      url,
+      mp3,
       wp,
       name,
       singer,
@@ -17,25 +25,28 @@ $(function () {
       lyric
     } = song
 
-    initPlayer.call(undefined, url, wp, covoer)
+
+
+    initPlayer.call(undefined, mp3, wp, covoer)
     initText(name, lyric)
     //添加音乐标题
   })
 
 
   function initText(name, lyric) {
+    // console.log(lyric)
     var h1 = $("<h1></h1>").text(`${name}`);
     $('.song-description').prepend(h1)
     parseLyric.call(undefined, lyric)
   }
 
-  function initPlayer(url, wp, covoer, name) {
+  function initPlayer(mp3, wp, covoer, name) {
     //添加音乐图标和背景
     let covoerUrl = covoer
     $('.cover').attr('src', `${covoerUrl}`)
     $('.page').css('background-image', `url(${wp})`);
     let audio = document.createElement('audio')
-    audio.src = url
+    audio.src = mp3
     audio.oncanplay = function () {
       audio.play()
       $('.disc-containe').addClass('playing')
@@ -98,6 +109,7 @@ $(function () {
     let regex = /^\[(.+)\](.*)/
     array = array.map(function (string) {
       let matches = string.match(regex)
+     
       if (matches) {
         return {
           time: matches[1],
@@ -105,6 +117,7 @@ $(function () {
         }
       }
     })
+    
     let $lyric = $('.lyric')
     array.map(function (object) {
       if (!object) {
