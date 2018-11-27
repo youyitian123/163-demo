@@ -1,0 +1,57 @@
+.hotop{
+  background: url(/img/basics/hot_music_bg_2x.jpg) no-repeat;
+  background-size: contain;
+  padding-top: 38.9%;
+}
+
+.hotList > li >a{
+  display: flex;
+}
+
+.hotList .num{
+  font-size: 4.3vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2vw;
+}
+
+.sgfr{
+  margin-top: 2vw;
+  margin-left: 1vw;  
+}
+
+
+
+.sgfr >h3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: normal;
+  width: 85vw;
+}
+
+.sgfr> p {
+  line-height: 1.5;
+  margin: 1vw 0;
+  font-size: 3.2vw;
+  color: #888;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: normal;
+  width: 85vw;
+}
+
+div.f-bd::after{
+  content: ' ';
+  left: 0;
+  top: 0;
+  z-index: 20;
+  display: block;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+}
+
+.sgfl-cred{
+  color: #df3436;
+}

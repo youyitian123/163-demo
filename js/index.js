@@ -4,9 +4,11 @@ $(function () {
     url: "https://mexb4utr.api.lncld.net/1.1/classes/Songs",
     type: 'GET',
     dataType: 'json',
-    headers: {"X-LC-Id": "mexB4UtrT94NUV77jKbWjXrg-gzGzoHsz","X-LC-Key":"aUf02b02gVG8DiEeqC4YcGEP,master"},
+    headers: {
+      "X-LC-Id": "mexB4UtrT94NUV77jKbWjXrg-gzGzoHsz",
+      "X-LC-Key": "aUf02b02gVG8DiEeqC4YcGEP,master"
+    },
   }).then(function (response) {
-    console.log(response)
     let items = response.results
     items.forEach((i) => {
       let $li = $(`
@@ -39,29 +41,95 @@ $(function () {
 
     let index = $li.index()
     $li.trigger('tabChange', index)
-      
+
     $('.tabContent > li').eq(index).addClass('active').siblings().removeClass('active')
   })
 
   $('.siteNav').on('tabChange', function (e, index) {
-   
+
     let $li = $('.tabContent>li').eq(index)
-   
+
     if ($li.attr('data-downloader') === 'yes') {
       return
     }
     if (index === 1) {
       $.get('./page2.json').then((response) => {
-        $li.text(response.content)
+        let items = response
+        items.forEach((i, index) => {
+          let $li = $(`
+          <li>
+            <a href="./song.html?id=${i.id}">
+              <div class="num">${i.id}</div>
+              <div class="sgfr f-bd">
+                <h3>${i.name}</h3>
+                <p><span>${i.singer}</span> - <span>${i.album}</span></p>
+              </div>
+            </a>
+          </li>`)
+          $('#hotList').append($li)
+          if (index < 3) {
+            $('.num').addClass('sgfl-cred')
+          }
+        })
         $li.attr('data-downloader', 'yes')
-
       })
     } else if (index === 2) {
       $.get('./page3.json').then((response) => {
-        $li.text(response.content)
+        // $li.text(response.content)
         $li.attr('data-downloader', 'yes')
 
       })
     }
   })
+
+  //
+  let timer = undefined
+  $('input#searchSong').on('input', function (e) {
+    let $input = $(e.currentTarget)
+    let value = $input.val().trim()
+    // console.log(value)
+    if (value === '') {
+      return
+    }
+    if (timer) {
+      clearTimeout(timer)
+    }
+
+    timer = setTimeout(function () {
+      search(value).then((result) => {
+        timer = undefined
+        if (result.length !== 0) {
+          $('#output').text(result.map((r) => r.name).join(','))
+        } else {
+          $('#output').text('null')
+        }
+      })
+    }, 300)
+  })
+
+  function search(keyword) {
+    console.log(1)
+    return new Promise((resolve, reject) => {
+      var database = [{
+          "id": 1,
+          "name": "盗将行"
+        },
+        {
+          "id": 2,
+          "name": "可不可以"
+        },
+        {
+          "id": 3,
+          "name": "光年之外"
+        }
+      ]
+      let result = database.filter(function (item) {
+        return item.name.indexOf(keyword) >= 0
+      })
+      setTimeout(function () {
+        resolve(result)
+      }, ~~(Math.random() * 300 + 1000))
+    })
+
+  }
 })

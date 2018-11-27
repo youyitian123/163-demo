@@ -104,7 +104,6 @@ h4 {
 }
 
 .siteNav>ol>li.active>span::before {
-
   content: '';
   position: absolute;
   bottom: -1px;
@@ -113,8 +112,11 @@ h4 {
   border-bottom: 2px solid #d33a31;
 }
 
+.tabContent{
+  padding-top: 27.2vw;
+}
+
 .tabContent>li {
-  margin-top: 32vw;
   display: none
 }
 
@@ -141,7 +143,9 @@ h4 {
 }
 
 
-
+.playList{
+  padding-top: 4vw;
+}
 .playList ul {
   color: #333;
   display: flex;

@@ -10,12 +10,8 @@ $(function () {
     dataType: 'json',
     headers: {"X-LC-Id": "mexB4UtrT94NUV77jKbWjXrg-gzGzoHsz","X-LC-Key":"aUf02b02gVG8DiEeqC4YcGEP,master"},
   }).then(function (response) {
-    // console.log(response)
     let songs = response.results
-    // debugger
     let song = songs.filter(s => s.id === id)[0]
-    // console.log(song)
-
     let {
       mp3,
       wp,
@@ -34,7 +30,6 @@ $(function () {
 
 
   function initText(name, lyric) {
-    // console.log(lyric)
     var h1 = $("<h1></h1>").text(`${name}`);
     $('.song-description').prepend(h1)
     parseLyric.call(undefined, lyric)
