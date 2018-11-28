@@ -7,6 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="./css/index.css">
   <link rel="stylesheet" href="./css/page2.css">
+  <link rel="stylesheet" href="/css/page3.css">
   <script src="//at.alicdn.com/t/font_924261_i8wywkqblyn.js"></script>
   <script src="/js/jquery-3.3.1.js"></script>
   <title>163-demo</title>
@@ -172,7 +173,9 @@
 
     <li class="m-hmhot">
       <div class="hotop">
-
+        <div class="hotopct">
+            <div class="hotmusic-inner"></div>
+        </div>
       </div>
       <section class="m-sglst">
         <ol id="hotList" class="hotList">
@@ -180,9 +183,15 @@
       </section>
     </li>
 
-    <li>
-      <input id="searchSong" type="text" style="border:1px solid red;">
-      <div id="output"></div>
+    <li class="m-hmsrch">
+      <form action="#" method="GET" class="m-input f-bd">
+        <div class="inputcover">
+          <input class="searchSong" id="searchSong" type="text">
+        </div>
+      </form>
+      <div id="output" class="output">
+        <ol id="searchList" class="searchList"></ol>
+      </div>
     </li>
   </ol>
 

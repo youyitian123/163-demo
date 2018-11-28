@@ -95,20 +95,29 @@ $(function () {
       clearTimeout(timer)
     }
 
+    var $searchList = $('#searchList')
+    
     timer = setTimeout(function () {
       search(value).then((result) => {
         timer = undefined
+        $searchList .empty()
         if (result.length !== 0) {
-          $('#output').text(result.map((r) => r.name).join(','))
+          var array = result.map((r) => r.name)
+          array.forEach((i) => {
+            let $li = $(`<li>${i}</li>`)
+            $li.appendTo('#searchList')
+          })
         } else {
-          $('#output').text('null')
+          let $li = $(`<li>暂无搜索结果</li>`)
+          $li.appendTo('#searchList')
         }
       })
     }, 300)
   })
 
+
+
   function search(keyword) {
-    console.log(1)
     return new Promise((resolve, reject) => {
       var database = [{
           "id": 1,
@@ -121,6 +130,10 @@ $(function () {
         {
           "id": 3,
           "name": "光年之外"
+        },
+        {
+          "id": 4,
+          "name": "光辉岁月"
         }
       ]
       let result = database.filter(function (item) {
