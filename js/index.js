@@ -79,66 +79,53 @@ $(function () {
   })
 
   //
-  let timer = undefined
-  var $searchList = $('#searchList')
+
+
+  let timer = null
   $('input#searchSong').on('input', function (e) {
-   
     let $input = $(e.currentTarget)
     let value = $input.val().trim()
-    // console.log(value)
+    console.log(value)
     if (value === '') {
-      $searchList.empty()
+      $('#searchList').empty()
+      return
     }
     if (timer) {
-      clearTimeout(timer)
+      window.clearTimeout(timer)
     }
 
     timer = setTimeout(function () {
-      search(value).then((result) => {
-        $searchList.empty()
+      $.ajax({
+        url: "https://mexb4utr.api.lncld.net/1.1/classes/Songs",
+        type: 'GET',
+        dataType: 'json',
+        headers: {
+          "X-LC-Id": "mexB4UtrT94NUV77jKbWjXrg-gzGzoHsz",
+          "X-LC-Key": "aUf02b02gVG8DiEeqC4YcGEP,master",
+          "Content-Type": "UTF-8",
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        data: {
+          where: `{"name":"${value}"}`
+        }
+
+      }).then((response) => {
+        let result = response.results
+        console.log(result)
+        $('#searchList').empty()
         timer = undefined
-        if (result.length !== 0) {
+        if (result.length === 0) {
+          console.log(2)
+          let $li = $(`<li>暂无搜索结果</li>`)
+          $li.appendTo('#searchList')
+        } else {
           var array = result.map((r) => r.name)
           array.forEach((i) => {
             let $li = $(`<li>${i}</li>`)
             $li.appendTo('#searchList')
           })
-        } else {
-          let $li = $(`<li>暂无搜索结果</li>`)
-          $li.appendTo('#searchList')
         }
       })
     }, 300)
   })
-
-
-
-  function search(keyword) {
-    return new Promise((resolve, reject) => {
-      var database = [{
-          "id": 1,
-          "name": "盗将行"
-        },
-        {
-          "id": 2,
-          "name": "可不可以"
-        },
-        {
-          "id": 3,
-          "name": "光年之外"
-        },
-        {
-          "id": 4,
-          "name": "光辉岁月"
-        }
-      ]
-      let result = database.filter(function (item) {
-        return item.name.indexOf(keyword) >= 0
-      })
-      setTimeout(function () {
-        resolve(result)
-      }, ~~(Math.random() * 300 + 1000))
-    })
-
-  }
 })
