@@ -84,7 +84,9 @@ $(function () {
 
   //
   let timer = undefined
+  var $searchList = $('#searchList')
   $('input#searchSong').on('input', function (e) {
+    $searchList.empty()
     let $input = $(e.currentTarget)
     let value = $input.val().trim()
     // console.log(value)
@@ -95,12 +97,9 @@ $(function () {
       clearTimeout(timer)
     }
 
-    var $searchList = $('#searchList')
-    
     timer = setTimeout(function () {
       search(value).then((result) => {
         timer = undefined
-        $searchList .empty()
         if (result.length !== 0) {
           var array = result.map((r) => r.name)
           array.forEach((i) => {
