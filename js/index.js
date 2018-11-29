@@ -74,11 +74,7 @@ $(function () {
         $li.attr('data-downloader', 'yes')
       })
     } else if (index === 2) {
-      $.get('./page3.json').then((response) => {
-        // $li.text(response.content)
         $li.attr('data-downloader', 'yes')
-
-      })
     }
   })
 
