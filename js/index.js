@@ -74,7 +74,7 @@ $(function () {
         $li.attr('data-downloader', 'yes')
       })
     } else if (index === 2) {
-        $li.attr('data-downloader', 'yes')
+      $li.attr('data-downloader', 'yes')
     }
   })
 
@@ -82,12 +82,12 @@ $(function () {
   let timer = undefined
   var $searchList = $('#searchList')
   $('input#searchSong').on('input', function (e) {
-    $searchList.empty()
+   
     let $input = $(e.currentTarget)
     let value = $input.val().trim()
     // console.log(value)
     if (value === '') {
-      return
+      $searchList.empty()
     }
     if (timer) {
       clearTimeout(timer)
@@ -95,6 +95,7 @@ $(function () {
 
     timer = setTimeout(function () {
       search(value).then((result) => {
+        $searchList.empty()
         timer = undefined
         if (result.length !== 0) {
           var array = result.map((r) => r.name)
