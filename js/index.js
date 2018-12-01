@@ -1,37 +1,8 @@
 //动态生成推荐音乐
 $(function () {
-  $.ajax({
-    url: "https://mexb4utr.api.lncld.net/1.1/classes/Songs",
-    type: 'GET',
-    dataType: 'json',
-    headers: {
-      "X-LC-Id": "mexB4UtrT94NUV77jKbWjXrg-gzGzoHsz",
-      "X-LC-Key": "aUf02b02gVG8DiEeqC4YcGEP,master"
-    },
-  }).then(function (response) {
-    let items = response.results
-    items.forEach((i) => {
-      let $li = $(`
-     <li>
-      <a href="./song.html?id=${i.id}">
-      <h3>${i.name}</h3>
-      <p>
-        <svg class="sq" aria-hidden="true">
-        <use xlink:href="#icon-wusunyinzhi"></use>
-        </svg>
-        ${i.singer} - ${i.album}
-      </p>
-      <svg class="play" aria-hidden="true">
-      <use xlink:href="#icon-play"></use>
-      </svg>
-        </a>
-      </li>
-     `)
-      $('#latelyMusic').append($li)
-    })
-    $('#latelyMusicLoading').remove()
-  })
-
+  const myUrl = "https://mexb4utr.api.lncld.net/1.1/classes/Songs"
+  const myXLCId = "mexB4UtrT94NUV77jKbWjXrg-gzGzoHsz"
+  const myXLCKey = "aUf02b02gVG8DiEeqC4YcGEP,master"
 
 
   //分页切换
@@ -78,54 +49,106 @@ $(function () {
     }
   })
 
-  //
+  page2hotList()
+  page3SearchSong()
 
 
-  let timer = null
-  $('input#searchSong').on('input', function (e) {
-    let $input = $(e.currentTarget)
-    let value = $input.val().trim()
-    console.log(value)
-    if (value === '') {
-      $('#searchList').empty()
-      return
+
+    /**
+   * Page2 Ajax请求leanClound Api 生产热歌榜
+   */
+  function page2hotList() {
+    let getheader = {
+      "X-LC-Id": myXLCId,
+      "X-LC-Key": myXLCKey
     }
-    if (timer) {
-      window.clearTimeout(timer)
-    }
+    let getValue = null
 
-    timer = setTimeout(function () {
-      $.ajax({
-        url: "https://mexb4utr.api.lncld.net/1.1/classes/Songs",
-        type: 'GET',
-        dataType: 'json',
-        headers: {
-          "X-LC-Id": "mexB4UtrT94NUV77jKbWjXrg-gzGzoHsz",
-          "X-LC-Key": "aUf02b02gVG8DiEeqC4YcGEP,master",
-          "Content-Type": "UTF-8",
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        data: {
-          where: `{"name":"${value}"}`
-        }
-
-      }).then((response) => {
-        let result = response.results
-        console.log(result)
-        $('#searchList').empty()
-        timer = undefined
-        if (result.length === 0) {
-          console.log(2)
-          let $li = $(`<li>暂无搜索结果</li>`)
-          $li.appendTo('#searchList')
-        } else {
-          var array = result.map((r) => r.name)
-          array.forEach((i) => {
-            let $li = $(`<li>${i}</li>`)
-            $li.appendTo('#searchList')
-          })
-        }
+    getLcJson(getheader, getValue).then(function (response) {
+      let items = response.results
+      items.forEach((i) => {
+        let $li = $(`
+     <li>
+      <a href="./song.html?id=${i.id}">
+      <h3>${i.name}</h3>
+      <p>
+        <svg class="sq" aria-hidden="true">
+        <use xlink:href="#icon-wusunyinzhi"></use>
+        </svg>
+        ${i.singer} - ${i.album}
+      </p>
+      <svg class="play" aria-hidden="true">
+      <use xlink:href="#icon-play"></use>
+      </svg>
+        </a>
+      </li>
+     `)
+        $('#latelyMusic').append($li)
       })
-    }, 300)
-  })
+      $('#latelyMusicLoading').remove()
+    })
+  }
+
+    /**
+   * Page3 Ajax请求leanClound Api 搜索歌曲
+   */
+
+  function page3SearchSong() {
+    let timer = null
+    $('input#searchSong').on('input', function (e) {
+      let $input = $(e.currentTarget)
+      let value = $input.val().trim()
+      console.log(value)
+      if (value === '') {
+        $('#searchList').empty()
+        return
+      }
+      if (timer) {
+        window.clearTimeout(timer)
+      }
+
+      let getheader = {
+        "X-LC-Id": myXLCId,
+        "X-LC-Key": myXLCKey,
+        "Content-Type": "UTF-8",
+        "Content-Type": "application/x-www-form-urlencoded"
+      }
+      let getValue = {
+        where: `{"name":"${value}"}`
+      }
+      timer = setTimeout(function () {
+        getLcJson(getheader, getValue).then((response) => {
+          let result = response.results
+          console.log(result)
+          $('#searchList').empty()
+          timer = undefined
+          if (result.length === 0) {
+            console.log(2)
+            let $li = $(`<li>暂无搜索结果</li>`)
+            $li.appendTo('#searchList')
+          } else {
+            var array = result.map((r) => r.name)
+            array.forEach((i) => {
+              let $li = $(`<li>${i}</li>`)
+              $li.appendTo('#searchList')
+            })
+          }
+        })
+      }, 300)
+    })
+  }
+
+  /**
+   * 发送ajax请求获取leancloud上的数据
+   */
+  function getLcJson(header, mydata) {
+    var $ajax = $.ajax({
+      url: myUrl,
+      type: 'GET',
+      dataType: 'json',
+      headers: header,
+      data: mydata
+    })
+    return $ajax
+  }
 })
