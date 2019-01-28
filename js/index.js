@@ -123,7 +123,6 @@ $(function () {
           $('#searchList').empty()
           timer = undefined
           if (result.length === 0) {
-            console.log(2)
             let $li = $(`<li>暂无搜索结果</li>`)
             $li.appendTo('#searchList')
           } else {
